@@ -30,10 +30,16 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import com.mongodb.client.gridfs.GridFSBucket;
+import com.mongodb.client.gridfs.GridFSDownloadStream;
 import com.mongodb.client.gridfs.model.GridFSUploadOptions;
 import javax.servlet.http.Part;
 import java.sql.Timestamp;
 import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import com.mongodb.MongoClientURI;
+
 public class DB {
 
 	 String user;
@@ -41,6 +47,7 @@ public class DB {
 	 MongoDatabase database;
 	 MongoCollection<User> usersCollection;
 	  MongoCollection<Inbox> inboxCollection;
+	   GridFSBucket gridFSBucket;
 	 
 	 // constructor
 	 
@@ -58,9 +65,17 @@ public class DB {
 		 
 		 
 		 
-		 MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017), Arrays.asList(credential), MongoClientOptions.builder().codecRegistry(codecRegistry).build());		
+		 //MongoClient mongoClient = new MongoClient(new ServerAddress(""), Arrays.asList(credential), MongoClientOptions.builder().codecRegistry(codecRegistry).build());		
          
-		 database = mongoClient.getDatabase("mail");
+		 
+		 
+		 MongoClientURI uri = new MongoClientURI(
+        "mongodb+srv://admin:Nishantd%401410@cluster0.mxukk.gcp.mongodb.net/mail?retryWrites=true&w=majority");
+        MongoClient mongoClient = new MongoClient(uri);
+        MongoDatabase database = mongoClient.getDatabase("mail");
+		 
+		 
+		 //database = mongoClient.getDatabase("mail");
 		 com.mongodb.DB db = mongoClient.getDB("mail");
          if(!db.collectionExists("Users"))
 		 {
@@ -72,6 +87,7 @@ public class DB {
 		 }
 		 usersCollection=database.getCollection("Users", User.class).withCodecRegistry(codecRegistry);
 		 inboxCollection=database.getCollection("Inbox", Inbox.class).withCodecRegistry(codecRegistry);
+		 gridFSBucket = GridFSBuckets.create(database, "uploadedFiles");
 		 
          		 
 			  
@@ -100,6 +116,7 @@ public class DB {
 				List<Mail>favourites=new ArrayList<Mail>();
 				List<Mail>spam=new ArrayList<Mail>();
 				List <String> cc=new ArrayList<String>();
+				List<ObjectId> fileIdList=new ArrayList<>();
 				cc.add("");
 				Mail m=new Mail();
 		        m.setSenderUserName("System");
@@ -109,7 +126,8 @@ public class DB {
 		        m.setMessage("This message is System generated");
 		        m.setDate();
 		        m.setTime();
-		        m.setFileId(new ObjectId());
+				fileIdList.add(new ObjectId());
+		        m.setFileIdList(fileIdList);
 				read.add(m);
 				unread.add(m);
 				favourites.add(m);
@@ -123,28 +141,33 @@ public class DB {
 			   return inbox;
        }		   
 		
-	  public ObjectId uploadFile(Part part)
+	  public ObjectId uploadFile(String fileName,String contentType,long fileSize,InputStream inputStream )
 	  {
 		  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 		  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		  InputStream inputStream=null;
-		  
-		  try{
-			  inputStream =part.getInputStream();
-		  }
-		  catch(Exception e)
-		  {}
-		  
-			  
-		  
-		  GridFSBucket gridFSBucket = GridFSBuckets.create(database, "uploadedFiles");
 		  GridFSUploadOptions uploadOptions = new GridFSUploadOptions()
 		  .chunkSizeBytes(1024)
-		  .metadata(new Document("type", part.getHeader("type"))
+		  .metadata(new Document("fileName",fileName)
 		  .append("upload_date", sdf.format(timestamp))
-		  .append("content_type", part.getContentType()));
-		  ObjectId fileId = gridFSBucket.uploadFromStream(part.getName(),inputStream, uploadOptions);
+		  .append("content_type", contentType)
+		  .append("fileSize",fileSize));
+		  ObjectId fileId = gridFSBucket.uploadFromStream(fileName,inputStream, uploadOptions);
 		  return fileId;
+	  }
+	  
+	  public Document getFileInfo(Object fileId)
+	  {
+		        GridFSDownloadStream downloadStream = gridFSBucket.openDownloadStream((ObjectId)fileId);
+				Document metadata=downloadStream.getGridFSFile().getMetadata();
+				return metadata;
+	  
+	  }
+	  
+	  
+	  public InputStream getFile(Object fileId)
+	  {
+		        GridFSDownloadStream downloadStream = gridFSBucket.openDownloadStream((ObjectId)fileId);
+				return downloadStream;
 	  }
 	  
 	   public User findUser(String userName,String password)
@@ -172,9 +195,22 @@ public class DB {
        }
 	   public static void main(String [] args)
 	   {
-		   DB db=new DB("admin","Nishantd@1410");
-		   Inbox inbox=db.getInbox("nishantd.mishra");
-		   
+		  /*DB db=new DB("admin","Nishantd@1410");
+		  User u=new User();
+		  u.setUserName("nishant.mishra");
+		  u.setFirstName("Nishant");
+		  u.setLastName("Mishra");
+		  u.setPassword("12345");
+		  db.createUser(u);
+		   InputStream in = db.getFile("5f58e76e42ada60c34b699bf");
+		   File outputfile = new File("C:\\Users\\Prashant\\Desktop\\MyProject\\saved.jpeg"); 
+		   try{
+			  outputfile.createNewFile();
+			  BufferedImage bImage = ImageIO.read(in); 
+			  ImageIO.write(bImage, "jpeg", outputfile); 
+		  }catch(Exception ex){
+		  }			  
+		 */  
 	   } 
  
 }

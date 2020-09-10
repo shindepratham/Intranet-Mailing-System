@@ -31,6 +31,10 @@
  <servlet-name>compose</servlet-name>
  <servlet-class>com.example.web.MakeMail</servlet-class>
  </servlet>
+ <servlet>
+ <servlet-name>GetFile</servlet-name>
+ <servlet-class>com.example.web.GetFile</servlet-class>
+ </servlet>
 
 
  
@@ -45,6 +49,10 @@
   <servlet-mapping>
  <servlet-name>compose</servlet-name>
   <url-pattern>/compose.do</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>GetFile</servlet-name>
+  <url-pattern>/downloadFile.do</url-pattern>
  </servlet-mapping>
  
 

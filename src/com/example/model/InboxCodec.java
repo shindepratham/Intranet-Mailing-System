@@ -40,7 +40,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				 String message= m.getMessage();
 				 String date=m.getDate();
 				 String time=m.getTime();
-	             ObjectId fileId=m.getFileId();
+	             List<ObjectId> fileIdList=m.getFileIdList();
 				 if (null != senderUserName) {
 				  mailDocument.append("senderUserName",senderUserName);
 				}
@@ -59,8 +59,8 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				if(null!=time){
 					 mailDocument.append("time",time);
 				}
-				if(null!=fileId){
-					mailDocument.append("fileId",fileId);
+				if(null!=fileIdList){
+					mailDocument.append("fileIdList",fileIdList);
 				}
                 readMailDocument.add(mailDocument);				
                 				
@@ -81,7 +81,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 					 String message= m.getMessage();
 					 String date=m.getDate();
 					 String time=m.getTime();
-					 ObjectId fileId=m.getFileId();
+					 List<ObjectId> fileIdList=m.getFileIdList();
 					 if (null != senderUserName) {
 					  mailDocument.append("senderUserName",senderUserName);
 					}
@@ -100,8 +100,8 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 					if(null!=time){
 						 mailDocument.append("time",time);
 					}
-					if(null!=fileId){
-						mailDocument.append("fileId",fileId);
+					if(null!=fileIdList){
+						mailDocument.append("fileIdList",fileIdList);
 					}
 					favouriteMailDocument.add(mailDocument);				
 									
@@ -121,7 +121,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				 String message= m.getMessage();
 				 String date=m.getDate();
 			     String time=m.getTime();
-	             ObjectId fileId=m.getFileId();
+	             List<ObjectId> fileIdList=m.getFileIdList();
 				 if (null != senderUserName) {
 				  mailDocument.append("senderUserName",senderUserName);
 				}
@@ -140,8 +140,8 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				if(null!=time){
 					 mailDocument.append("time",time);
 				}
-				if(null!=fileId){
-					mailDocument.append("fileId",fileId);
+				if(null!=fileIdList){
+					mailDocument.append("fileIdList",fileIdList);
 				}
                  unreadMailDocument.add(mailDocument);					
                 				
@@ -161,7 +161,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				 String message= m.getMessage();
 				  String date=m.getDate();
 			    String time=m.getTime();
-	             ObjectId fileId=m.getFileId();
+	             List<ObjectId> fileIdList=m.getFileIdList();
 				 if (null != senderUserName) {
 				  mailDocument.append("senderUserName",senderUserName);
 				}
@@ -180,8 +180,8 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 				if(null!=time){
 					 mailDocument.append("time",time);
 				}
-				if(null!=fileId){
-					mailDocument.append("fileId",fileId);
+				if(null!=fileIdList){
+					mailDocument.append("fileIdList",fileIdList);
 				}
                 spamMailDocument.add(mailDocument);				
                 				
@@ -214,7 +214,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 String message=mailDocument.getString("message");
 		String date=mailDocument.getString("date");
 		 String time=mailDocument.getString("time");
-		ObjectId fileId=(ObjectId)mailDocument.get("fileId");
+		List<ObjectId> fileIdList=(List<ObjectId>)mailDocument.get("fileIdList");
 		 Mail m=new Mail();
 		 m.setSenderUserName(senderUserName);
 		 m.setReceiverUserName(receiverUserName);
@@ -223,7 +223,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 m.setMessage(message);
 		 m.setDate(date);
 		 m.setTime(time);
-		 m.setFileId(fileId);
+		 m.setFileIdList(fileIdList);
 		 readMail.add(m);
 	}
 	
@@ -236,7 +236,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 String message=mailDocument.getString("message");
 		 String date=mailDocument.getString("date");
 		  String time=mailDocument.getString("time");
-		 ObjectId fileId=(ObjectId)mailDocument.get("fileId");
+		 List<ObjectId> fileIdList=(List<ObjectId>)mailDocument.get("fileIdList");
 		 Mail m=new Mail();
 		 m.setSenderUserName(senderUserName);
 		 m.setReceiverUserName(receiverUserName);
@@ -245,7 +245,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 m.setMessage(message);
 		 m.setDate(date);
 		 m.setTime(time);
-		 m.setFileId(fileId);
+		m.setFileIdList(fileIdList);
 		 unreadMail.add(m);
 	}	
    for(Document mailDocument:favouriteMailDocument)
@@ -257,7 +257,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 String message=mailDocument.getString("message");
 		  String date=mailDocument.getString("date");
 		 String time=mailDocument.getString("time");
-		 ObjectId fileId=(ObjectId)mailDocument.get("fileId");
+		 List<ObjectId> fileIdList=(List<ObjectId>)mailDocument.get("fileIdList");
 		 Mail m=new Mail();
 		 m.setSenderUserName(senderUserName);
 		 m.setReceiverUserName(receiverUserName);
@@ -266,7 +266,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 m.setMessage(message);
 		 m.setDate(date);
 		 m.setTime(time);
-		 m.setFileId(fileId);
+		 m.setFileIdList(fileIdList);
 		 favourites.add(m);
 	}
    for(Document mailDocument:spamMailDocument)
@@ -278,7 +278,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 String message=mailDocument.getString("message");
 		 String date=mailDocument.getString("date");
 		 String time=mailDocument.getString("time");
-		 ObjectId fileId=(ObjectId)mailDocument.get("fileId");
+		 List<ObjectId> fileIdList=(List<ObjectId>)mailDocument.get("fileIdList");
 		 Mail m=new Mail();
 		 m.setSenderUserName(senderUserName);
 		 m.setReceiverUserName(receiverUserName);
@@ -287,7 +287,7 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 		 m.setMessage(message);
 		 m.setDate(date);
 		 m.setTime(time);
-		 m.setFileId(fileId);
+		m.setFileIdList(fileIdList);
 		 spam.add(m);
 	}
    Inbox inbox =new Inbox();

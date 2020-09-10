@@ -2,7 +2,7 @@
                     <!-- d-lg-none will hide the button on medium and large screens -->
 						 <a id="navTrigger" class="d-lg-none nav-trigger" role="button" title="sweet hamburger" >
 								<span class="hamburger">
-								<span class="hamburger-icon"></span>
+								    <span class="hamburger-icon"></span>
 								</span>
 						  </a>
 						<div class="user-head">
@@ -108,7 +108,7 @@
                                             <div class="form-group">
                                                 <label class="col-lg-2 control-label">Message</label>
                                                 <div class="col-lg-10">
-                                                    <textarea name="" id="" class="form-control" cols="30" rows="10" name="message"></textarea>
+                                                    <textarea  id="" class="form-control" cols="30" rows="10" name="message"></textarea>
                                                 </div>
                                             </div>
 
@@ -117,9 +117,9 @@
                                                     <span class="btn green fileinput-button" data-original-title="" title="">
                                                       <i class="fa fa-plus fa fa-white"></i>
                                                       <span>Attachment</span>
-                                                      <input type="file" multiple="" name="files[]" name="attachment">
+                                                      <input type="file" multiple name="attachment">
                                                     </span>
-                                                    <button type="submit" class="btn btn-send" data-original-title="" title="">Send</button>
+                                                    <button type="submit" class="btn btn-send" >Send</button>
                                                 </div>
                                             </div>
                                         </form>

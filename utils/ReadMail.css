@@ -1,3 +1,9 @@
+@use postcss-simple-vars;
+@use postcss-media-minmax;
+@use postcss-nested;	
+	
+	
+	
 	body{
 margin-top:20px;
 background:#eee;
@@ -33,6 +39,10 @@ background:#eee;
     background: #fff;
     border-radius: 0px 4px 4px 0;
     -webkit-border-radius: 0px 4px 4px 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 999;
 }
 
 .mail-box .sm-side .user-head {
@@ -205,7 +215,19 @@ ul.labels-info li a i {
     padding: 0 20px;
     border-radius: 0 4px 4px 0;
     -webkit-border-radius: 0 4px 4px 0;
+
 }
+table {width: 100%;}
+
+td
+{
+ max-width: 0;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+
 
 .table-inbox {
     border: 1px solid #d3d3d3;
@@ -378,6 +400,16 @@ ul.inbox-pagination li {
     width: 100%;
     display: inline-block;
 }
+
+
+
+
+
+/*Hamburger Transition*/
+
+
+
+
 #sidebar {
   -webkit-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
@@ -390,14 +422,21 @@ ul.inbox-pagination li {
   z-index: 999;
 }
 
+
+
+/*    content */
+
 #content {
   -webkit-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
 }
 
+
+/* for transition*/
 .sidebar-opened #content {
   margin-left: 250px;
 }
+
 
 @media (max-width: 992px) {
   #sidebar {
@@ -410,9 +449,15 @@ ul.inbox-pagination li {
     margin-left: 250px;
   }
 }
+ a {
+    color: #bf4d28;
+    text-decoration: none;
+    transition: all 0.7s;
+    }
+ i:hover, i:focus {
+      color: #80bca3;
+ } 
 
-
-/* Hamburger Menu */
 
 .nav-trigger {
   cursor: pointer;
@@ -426,7 +471,10 @@ ul.inbox-pagination li {
   top: 0;
 }
 
-.nav-trigger:hover .hamburger {
+
+
+
+nav-trigger:hover .hamburger {
   transition: transform 50ms;
   transform: scale(.95);
 }
@@ -499,4 +547,98 @@ ul.inbox-pagination li {
 
 i:hover {
   color: #fff;
+}
+
+
+
+
+
+
+/*   ************* */
+
+
+
+
+
+
+
+
+
+.readmail{
+  height:100%;
+
+
+}
+
+
+
+
+
+
+.attachment_download_btn {
+  display: inline-block;
+  padding: 12px 12px 10px;
+  border: 0;
+  border-radius: 3px;
+  background: #bf4d28;
+  text-decoration: none;
+  transition: all 1.2s ease-in-out;
+  }
+  .attachment_download_btn i::after{
+	content:"\f019"; 
+	font-size: 40px;
+    color: #fff;
+  }
+  .attachment_download_btn:hover {
+    animation: pulse 0.2s 2 both;
+  }
+  
+  .loading i::after{
+	  content:"\f1ce"; 
+	  animation: loading 2s infinite linear; 
+      font-size: 40px;
+       color: #fff;	  
+  }
+  
+ .success i::after{
+	content:"\f00c";
+	border-radius: 50%;
+    background: #80bca3;
+    color: transparent;
+    animation: change-icon 1s 0.6s linear both;
+    }
+
+@keyframes loading {
+  0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(359deg);
+      transform: rotate(359deg);
+  }
+}
+
+@keyframes change-icon {
+  0% {
+    color: transparent;
+  }
+  
+  100% {
+    color: #fff;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
 }

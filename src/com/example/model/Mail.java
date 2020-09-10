@@ -11,20 +11,22 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
+
  
 public class Mail{
 	private String senderUserName;
 	private String receiverUserName;
-	private String message;
 	private List<String> ccList;
 	private String subject;
-	private Part file;
+	private String message;
 	boolean spam;
     boolean favourite;
     boolean read;
 	String date;
 	String time;
-	ObjectId fileId;
+	List<ObjectId> fileIdList;
+	
+	
 	
     public void setDate(String date)
 	{
@@ -37,6 +39,9 @@ public class Mail{
 			this.date = sdf.format(new Date());
 			
 	}
+	
+	
+	
 	public void setTime(String time)
 	{
 			this.time=time;
@@ -49,12 +54,15 @@ public class Mail{
              this.time= sdf.format(new Date());; 			 	
 			
 	}
-	public void setFileId(ObjectId fileId)
+	public void setFileIdList(List<ObjectId> fileIdList)
 	 {
-		 this.fileId=fileId;
+		 this.fileIdList=fileIdList;
 	 }
-	  
-    public void setSenderUserName(String senderUserName)
+	 
+
+
+	 
+     public void setSenderUserName(String senderUserName)
 	 {
 		 this.senderUserName= senderUserName;
      }
@@ -74,10 +82,6 @@ public class Mail{
 	 public void setCcList(List<String> ccList)
 	 {
 		this.ccList=ccList;
-	 }
-	 public void setFile(Part file)
-	 {
-		this.file=file;
 	 }
 
 
@@ -101,9 +105,9 @@ public class Mail{
 	 {
 		 return message;
 	 }
-	 public ObjectId getFileId()
+	 public List<ObjectId> getFileIdList()
 	 {
-		 return fileId;
+		 return fileIdList;
 	 }
 	 public String getDate()
 	 {
@@ -116,10 +120,6 @@ public class Mail{
 	 public String getTime()
 	 {
 		 return time;
-	 }
-	  public Part getFile()
-	 {
-		return file;
 	 }
 	 
 	 
@@ -142,9 +142,6 @@ public class Mail{
 
      public boolean send(DB db)
      {
-		 fileId=null;
-		 if(file!=null)
-			fileId=db.uploadFile(file);
 		Document mail=new Document();
 		List<String> receiverUserNames=new ArrayList<>();
 		if(ccList!=null)
@@ -169,10 +166,10 @@ public class Mail{
 		    .append("message",message)
 		    .append("date",date)
 		   .append("time",time);
-        if(fileId!=null)
+        if(fileIdList.size()!=0)
 		{
-			mailDocument.append("fileId",fileId);
+			mailDocument.append("fileIdList",fileIdList);
         }
-     return mailDocument;		
+        return mailDocument;		
 	 } 
 }

@@ -8,7 +8,6 @@
 
 
 
-          <aside  class="lg-side" >
               <div class="inbox-head container-fluid">
                     <h3 class="col-xs-3">Inbox</h3>
                     <form class="pull-right position " action="#">
@@ -93,5 +92,4 @@
 						</tbody>
 					</table>
                 </div>
-			</aside>	
 				
