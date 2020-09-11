@@ -316,7 +316,23 @@ ul.inbox-pagination li {
     border: 1px solid #e6e6e6;
     background: #eeeeee;
 }
+.modal.in .modal-dialog {
+    position:fixed;
+    bottom:0px;
+    right:0px;
+    margin:0px;
+}
+ .modal.fade.modal-right .modal-dialog {
+	position:fixed;
+    top:0px;
+    right:0px;
+    margin:0px;
+   transform:none;
+}
 
+.modal.show.modal-right .modal-dialog {
+  transform: none;
+}
 .inbox-body .modal .modal-body input, .inbox-body .modal .modal-body textarea{
     border: 1px solid #e6e6e6;
     box-shadow: none;
@@ -330,16 +346,53 @@ ul.inbox-pagination li {
 .btn-send:hover {
     background: #009da7;
 }
-
+.modal-header{
+	background:#000000;
+}
 .modal-header h4.modal-title {
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
+	float:left;
+	background:#000000;
+	color:#ffffff;
 }
 
 .modal-body label {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
 }
+
+
+@media screen and (min-width: 768px) {
+
+	.modal-dialog {
+
+	  width: 700px; /* New width for default modal */
+	  height:100%;
+
+	}
+
+	.modal-sm {
+
+	  width: 350px; /* New width for small modal */
+	   height:100%;
+
+	}
+
+}
+
+@media screen and (min-width: 992px) {
+
+	.modal-lg {
+
+	  width: 950px; /* New width for large modal */
+	   height:100%;
+
+	}
+
+}
+
+
 
 .heading-inbox h4{
     font-size: 18px;
@@ -641,4 +694,82 @@ i:hover {
   to {
     transform: scale3d(1, 1, 1);
   }
+}
+#drop-area {
+    height: 50px;
+    text-align: center;
+    border: 2px dashed #ddd;
+    padding: 10px;
+    margin-bottom: 2em;
+}
+li{
+	list-style-type:none;
+}
+
+.progress-bar-container {
+    padding: 1px;
+    overflow: hidden;
+    border: 1px solid #a4a4a4;
+	margin:8px;
+	margin-top:10px;
+}
+.progress-bar { 
+	  width:100%;
+    height: 15px;
+    background-image: linear-gradient(135deg, #6187f2 0%, #6187f2 25%, #5679da 25%, #5679da
+        50%, #6187f2 50%, #6187f2 75%, #5679da 75%, #5679da 100%);
+    background-repeat: repeat;
+    background-position: 0px 0px;
+    background-size: 16px 16px;
+    background-clip: content-box;
+    animation: loading 1s linear infinite;
+    -o-animation: loading 1s linear infinite;
+    -moz-animation: loading 1s linear infinite;
+    -webkit-animation: loading 1s linear infinite;
+}
+.image-files{
+  border: 1px solid #ddd; 
+  border-radius: 4px;  
+  padding: 5px; 
+  width: 100%;
+  height:150 px;  
+}
+@keyframes loading {
+    from { 
+      background-position:0px 0px;  
+    }
+    to {
+      background-position: -16px 0px;
+    }
+}
+@-webkit-keyframes loading {
+    from { 
+      background-position:0px 0px;  
+    }
+    to {
+      background-position: -16px 0px;
+    }
+}
+@-moz-keyframes loading {
+    from { 
+      background-position:0px 0px;  
+    }
+    to {
+      background-position: -16px 0px;
+    }
+}
+@-o-keyframes loading { 
+    from { 
+      background-position:0px 0px;  
+    }
+    to {
+      background-position: -16px 0px;
+    }
+}
+.modal-dialog{ 
+    overflow-y:auto; 
+    position:relative;
+    height:90%;
+	top:10px;
+   bottom:10px;
 }

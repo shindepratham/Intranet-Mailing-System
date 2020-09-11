@@ -179,7 +179,7 @@ public class DB {
        public Inbox getInbox(String userName)
        {
 		   Bson queryFilter =eq("userName",userName);
-		   Inbox inbox = inboxCollection.find(queryFilter).iterator().tryNext();
+		   Inbox inbox = inboxCollection.find(queryFilter).sort(new Document("_id",-1)).iterator().tryNext();
 		   return inbox; 
 	   }		   
 	  

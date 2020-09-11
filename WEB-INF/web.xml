@@ -35,6 +35,10 @@
  <servlet-name>GetFile</servlet-name>
  <servlet-class>com.example.web.GetFile</servlet-class>
  </servlet>
+ <servlet>
+ <servlet-name>UploadFile</servlet-name>
+ <servlet-class>com.example.web.UploadFile</servlet-class>
+ </servlet>
 
 
  
@@ -53,6 +57,10 @@
  <servlet-mapping>
   <servlet-name>GetFile</servlet-name>
   <url-pattern>/downloadFile.do</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UploadFile</servlet-name>
+  <url-pattern>/uploadFile.do</url-pattern>
  </servlet-mapping>
  
 

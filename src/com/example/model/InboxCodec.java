@@ -292,9 +292,13 @@ public class InboxCodec implements CollectibleCodec<Inbox> {
 	}
    Inbox inbox =new Inbox();
    inbox.setUserName(userName);
+   Collections.reverse(readMail); 
    inbox.setReadMail(readMail);
+    Collections.reverse(favourites); 
    inbox.setFavourites(favourites);
+   Collections.reverse(unreadMail); 
    inbox.setUnreadMail(unreadMail);
+    Collections.reverse(spam); 
    inbox.setSpam(spam);
    return inbox;
   }

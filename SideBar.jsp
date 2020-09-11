@@ -27,7 +27,7 @@
 
 						<ul class="inbox-nav inbox-divider">
 							<li class="active">
-								<a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+								<a class="inboxLink" href="" ><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-envelope-o"></i> Sent Mail</a>
@@ -78,15 +78,15 @@
 							</div>
 						</div>
                 </aside>
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade modal-right" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h4 class="modal-title">Compose</h4>
+									<h4 class="modal-title">Compose</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="far fa-times-circle" style="color:#FFFFFF;"></i></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form class="form-horizontal" role="form" method="post" action="compose.do"  enctype='multipart/form-data'>
+                                        <form class="form-horizontal" id="submitForm" role="form" method="post" action="compose.do"  enctype='multipart/form-data'>
                                             <div class="form-group">
                                                 <label class="col-lg-2 control-label">To</label>
                                                 <div class="col-lg-10">
@@ -113,17 +113,33 @@
                                             </div>
 
                                             <div class="form-group">
+											     <div class="col-lg-offset-2 col-lg-10">
+											        <p id="drop-area">
+														<span class="drop-instructions">or drag and drop files here</span>
+														<span class="drop-over">Drop files here!</span>
+				                                    </p>
+												</div>	
                                                 <div class="col-lg-offset-2 col-lg-10">
                                                     <span class="btn green fileinput-button" data-original-title="" title="">
                                                       <i class="fa fa-plus fa fa-white"></i>
                                                       <span>Attachment</span>
-                                                      <input type="file" multiple name="attachment">
+                                                      <input type="file" id="files-upload" multiple name="attachment">
                                                     </span>
+				
                                                     <button type="submit" class="btn btn-send" >Send</button>
+                                                </div>
+												<div class="col-lg-offset-2 col-lg-10">
+                                                    <div id="file-list">
+													   
+													</div>
+				
+      
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
+                        </div>
+						<!-- /.modal -->
+						<script src="utils\SideBar_js\fileUpload.js"></script>

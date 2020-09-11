@@ -28,41 +28,17 @@ public class MakeMail extends HttpServlet {
 		 PrintWriter out = response.getWriter();
 		 DB db=(DB)getServletContext().getAttribute("Database");
 		 HttpSession session = request.getSession(false);
-		 HashMap<String,String> attributeMap=new HashMap<>();
          List<ObjectId> fileIdList=new ArrayList<>();		
-
-		 List<FileItem> formItems;
-         if (ServletFileUpload.isMultipartContent(request)) {
-				try{	
-					formItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-					for (FileItem item : formItems) {
-						if (item.isFormField()) {
-							  String fieldName = item.getFieldName();
-							  String fieldValue = item.getString();
-							  attributeMap.put(fieldName,fieldValue);
-						 } else {
-								String fileName = item.getName();
-								String contentType =item.getContentType();
-								long fileSize=item.getSize();
-								InputStream inputStream = item.getInputStream();
-								fileIdList.add(db.uploadFile(fileName,contentType,fileSize,inputStream ));
-							}
-                       }
-					}catch(Exception e){
-						out.println("line no 40");	
-						out.println(e);
-				    }
-			}
-		String subject = attributeMap.get("subject");
-        String message = attributeMap.get("message");
-		String receiverUserName=attributeMap.get("to");
+		 String subject = request.getParameter("subject");
+         String message = request.getParameter("message");
+		 String receiverUserName=request.getParameter("to");
+		 List<String> fileIdListInString = Arrays.asList(request.getParameter("fileidList").split(","));
 
 		User receiver=null;
 		
 		if(session==null)
 			out.println("can't initialise session");
-		else{ 
-			   out.println("line no 78");	
+		else{ 	
 			    User user=(User)session.getAttribute("user");
 				if(((Boolean)session.getAttribute("logged-in"))==true && user!=null )
 				{
@@ -75,6 +51,10 @@ public class MakeMail extends HttpServlet {
 					  m.setMessage(message);
 					  m.setDate();
 					  m.setTime();
+					 for(String fileId:fileIdListInString)
+					  {
+						  fileIdList.add(new ObjectId(fileId));
+					  }
 					  m.setFileIdList(fileIdList);
 					 try{
 							 if(m.send(db)){
